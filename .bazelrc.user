@@ -1,0 +1,45 @@
+#build:local --config=remote_windows_x64
+
+#build:local --host_platform=//platform/windows_x64
+#build:local --platforms=//platform/windows_x64
+#build:local --host_crosstool_top=//platform/windows_x64:toolchain
+#build:local --crosstool_top=//platform/windows_x64:toolchain
+#build:local --host_cpu=x64_windows
+#build:local --cpu=x64_windows
+#build:local --host_compiler=msvc
+#build:local --compiler=msvc
+#build:local --action_env=BAZEL_DO_NOT_DETECT_CPP_TOOLCHAIN=1
+#build:local --extra_execution_platforms=//platform/windows_x64
+build:local --extra_execution_platforms=//platform/os:windows
+#build:local --extra_toolchains=//platform/windows_x64:cc-toolchain
+
+build:local --remote_executor=grpcs://demo.engflow.com:8080
+build:local --bes_backend=grpcs://demo.engflow.com:8080
+build:local --bes_lifecycle_events
+build:local --bes_results_url=https://demo.engflow.com:8080/invocation/
+
+build:local --tls_client_certificate=c:\\Users\\rogerhu\\engflow\\dev\\demo.engflow.com.crt
+build:local --tls_client_key=c:\\Users\\rogerhu\\engflow\\dev\\demo.engflow.com.key
+build:local --tls_certificate=c:\\Users\\rogerhu\\engflow\\dev\\demo.engflow.com.crt
+
+build:opal_auth --tls_client_certificate=c:\\Users\\rogerhu\\.engflow\\opal.crt
+build:opal_auth --tls_client_key=c:\\Users\\rogerhu\\.engflow\\opal.key
+
+build:kyanite --config=remote_windows_x64
+build:kyanite --config=kyanite_auth
+build:kyanite --config=kyanite_bes
+build:kyanite --remote_executor=grpcs://kyanite.cluster.engflow.com
+
+build:kyanite_bes --bes_backend=grpcs://kyanite.cluster.engflow.com
+build:kyanite_bes --bes_lifecycle_events
+build:kyanite_bes --bes_results_url=https://kyanite.cluster.engflow.com/invocations/default/
+
+build:kyanite --config=kyanite_auth
+build:kyanite --config=kyanite_bes
+build:kyanite --remote_executor=grpcs://kyanite.cluster.engflow.com
+
+build:kyanite_bes_only --config=kyanite_auth
+build:kyanite_bes_only --config=kyanite_bes
+
+build:kyanite_auth --tls_client_certificate=c:\\Users\\rogerhu\\.engflow\\kyanite\\engflow.crt
+build:kyanite_auth --tls_client_key=c:\\Users\\rogerhu\\.engflow\\kyanite\\engflow.key
